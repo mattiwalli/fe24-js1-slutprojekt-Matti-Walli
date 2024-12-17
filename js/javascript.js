@@ -1,0 +1,24 @@
+const topranked = document.querySelector("#topranked");
+const popular = document.querySelector("#mostpopular");
+const form = document.querySelector("form");
+
+// topranked.addEventListener("click");
+
+popular.addEventListener("click", (event) => {
+  event.preventDefault();
+  const PopularUrl ="https://api.themoviedb.org/3/movie/popular?api_key=d9e93600543beb7f1849ef7c24d7179f"
+    
+
+  fetch(PopularUrl)
+    .then((response) => response.json())
+    .then(GetpopularMovies);
+});
+
+function GetpopularMovies(PopularAPIObjekt) {
+  console.log(PopularAPIObjekt.results);
+
+  const imgE1 = document.createElement("img");
+  document.body.append(imgE1);
+
+  
+}
