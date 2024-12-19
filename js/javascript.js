@@ -75,18 +75,19 @@ form.addEventListener("submit", (event) => {
 
   const searchPerson = form.querySelector("input").value;
 
-  const url = `https://api.themoviedb.org/3/person/${searchPerson}?api_key=d9e93600543beb7f1849ef7c24d7179f`;
+  const url = `https://api.themoviedb.org/3/search/multi/${searchPerson}?api_key=d9e93600543beb7f1849ef7c24d7179f`;
   console.log(url);
 
   fetch(url)
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
         return response.json();
-      } else if (response.status === 404) {
+      } else if (response.status == 404) {
         throw "This person does not exist.";
       } else {
         throw "There was an error, Please try again later.";
       }
+      
     })
     .then(getActorInfo)
     .catch(errorMessage);
@@ -96,7 +97,7 @@ form.addEventListener("submit", (event) => {
 
 function errorMessage(error) {
   const pError = document.querySelector("#errorText");
-  error.innertext = error;
+  pError.innertext = error;
 }
 
 function getActorInfo(searchAPIObjekt) {
@@ -113,10 +114,10 @@ function getActorInfo(searchAPIObjekt) {
   nameActor.textContent = Actor.name;
 
   const Department = document.createElement("h2");
-  Department.textContent = Department.known_for_department;
+  Department.textContent = Actor.known_for_department;
 
   const famous = document.createElement("p");
-  famous.textContent = famous.popularity;
+  famous.textContent = Actor.popularity;
 
   personContainer.appendChild(iimg);
   personContainer.appendChild(nameActor);
