@@ -1,9 +1,12 @@
 const popular = document.querySelector("#mostpopular");
+const API_KEY = "d9e93600543beb7f1849ef7c24d7179f"
 
 popular.addEventListener("click", () => {
   event.preventDefault();
+
+  
   const PopularUrl =
-    "https://api.themoviedb.org/3/movie/popular?api_key=d9e93600543beb7f1849ef7c24d7179f";
+    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
 
   fetch(PopularUrl)
     .then((response) => response.json())
@@ -36,7 +39,7 @@ const topranked = document.querySelector("#topranked");
 topranked.addEventListener("click", () => {
   event.preventDefault();
   const Rankedurl =
-    "https://api.themoviedb.org/3/movie/top_rated?api_key=d9e93600543beb7f1849ef7c24d7179f";
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`;
 
   fetch(Rankedurl)
     .then((response) => response.json())
@@ -75,7 +78,7 @@ form.addEventListener("submit", (event) => {
 
   const searchPerson = form.querySelector("input").value;
 
-  const url = `https://api.themoviedb.org/3/search/multi/${searchPerson}?api_key=d9e93600543beb7f1849ef7c24d7179f`;
+  const url = `https://api.themoviedb.org/3/search/multi/${searchPerson}?api_key=${API_KEY}`;
   console.log(url);
 
   fetch(url)
