@@ -83,7 +83,7 @@ form.addEventListener("submit", (event) => {
       if (response.status >= 200 && response.status < 300) {
         return response.json();
       } else if (response.status == 404) {
-        throw "This person does not exist.";
+        throw "Incorrect typing, please try again.";
       } else {
         throw "There was an error, Please try again later.";
       }
