@@ -1,12 +1,10 @@
 const popular = document.querySelector("#mostpopular");
-const API_KEY = "d9e93600543beb7f1849ef7c24d7179f"
+const API_KEY = "d9e93600543beb7f1849ef7c24d7179f";
 
 popular.addEventListener("click", () => {
   event.preventDefault();
 
-  
-  const PopularUrl =
-    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
+  const PopularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
 
   fetch(PopularUrl)
     .then((response) => response.json())
@@ -38,8 +36,7 @@ const topranked = document.querySelector("#topranked");
 
 topranked.addEventListener("click", () => {
   event.preventDefault();
-  const Rankedurl =
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`;
+  const Rankedurl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`;
 
   fetch(Rankedurl)
     .then((response) => response.json())
@@ -78,7 +75,7 @@ form.addEventListener("submit", (event) => {
 
   const searchPerson = form.querySelector("input").value;
 
-  const url = `https://api.themoviedb.org/3/search/multi/${searchPerson}?api_key=${API_KEY}`;
+  const url = `https://api.themoviedb.org/3/search/multi?query=${searchPerson}&include_adult=false&language=en-US&page=1&api_key=${API_KEY}`;
   console.log(url);
 
   fetch(url)
@@ -90,9 +87,8 @@ form.addEventListener("submit", (event) => {
       } else {
         throw "There was an error, Please try again later.";
       }
-      
     })
-    .then(getActorInfo)
+    .then(getMultiInfo)
     .catch(errorMessage);
 
   form.reset();
@@ -100,30 +96,45 @@ form.addEventListener("submit", (event) => {
 
 function errorMessage(error) {
   const pError = document.querySelector("#errorText");
-  pError.innertext = error;
+  pError.innerText = error;
 }
 
-function getActorInfo(searchAPIObjekt) {
+function getMultiInfo(searchAPIObjekt) {
   const Actor = searchAPIObjekt.results;
 
   const personContainer = document.querySelector("#Actorresults");
-
   personContainer.innerHTML = "";
 
-  const iimg = document.createElement("img");
-  iimg.src = `https://image.tmdb.org/t/p/w200${Actor.profile_path}`;
+  for(let x = 0; x < Actor.length; x++ ){
 
-  const nameActor = document.createElement("h4");
-  nameActor.textContent = Actor.name;
+    const product = Actor[x]
+    const iimg = document.createElement("img");
+    
+    iimg.src = `https://image.tmdb.org/t/p/w200${product.profile_path}`;
+    
+    
+    console.log(Actor.profile_path);
+    console.log(Actor);
+    
+    
+  
+    const nameActor = document.createElement("h4");
+    nameActor.textContent = product.name;
+  
+    const Department = document.createElement("h2");
+    Department.textContent = product.known_for_department;
+  
+    const famous = document.createElement("p");
+    
 
-  const Department = document.createElement("h2");
-  Department.textContent = Actor.known_for_department;
+    famous.textContent = Actor.backdrop_path
+    
+  
+    personContainer.appendChild(iimg);
+    personContainer.appendChild(nameActor);
+    personContainer.appendChild(Department);
+    personContainer.appendChild(famous);
 
-  const famous = document.createElement("p");
-  famous.textContent = Actor.popularity;
-
-  personContainer.appendChild(iimg);
-  personContainer.appendChild(nameActor);
-  personContainer.appendChild(Department);
-  personContainer.appendChild(famous);
+  }
+  
 }
