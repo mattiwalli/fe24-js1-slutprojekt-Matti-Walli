@@ -70,7 +70,7 @@ function GetrankedMovies(RankedAPIObjekt) {
 
 const form = document.querySelector("form");
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", () => {
   event.preventDefault();
 
   const searchPerson = form.querySelector("input").value;
@@ -81,14 +81,18 @@ form.addEventListener("submit", (event) => {
   fetch(url)
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
+
         return response.json();
+
       } else if (response.status == 404) {
+
         throw "Incorrect typing, please try again.";
+
       } else {
         throw "There was an error, Please try again later.";
       }
     })
-    .then(getMultiInfo)
+    .then(getmultiInfo)
     .catch(errorMessage);
 
   form.reset();
@@ -99,42 +103,86 @@ function errorMessage(error) {
   pError.innerText = error;
 }
 
-function getMultiInfo(searchAPIObjekt) {
-  const Actor = searchAPIObjekt.results;
+function getmultiInfo(searchAPIObjekt) {
+  const multiSearch = searchAPIObjekt.results;
 
   const personContainer = document.querySelector("#Actorresults");
+  const movieContainer = document.querySelector("#Movieresults");
+
+  
   personContainer.innerHTML = "";
+  movieContainer.innerHTML = "";
 
-  for(let x = 0; x < Actor.length; x++ ){
+  
+  multiSearch.forEach((result) => {
+    
+    
+    if (result.media_type === "person") {
+      const iimg = document.createElement("img");
 
-    const product = Actor[x]
-    const iimg = document.createElement("img");
-    
-    iimg.src = `https://image.tmdb.org/t/p/w200${product.profile_path}`;
-    
-    
-    console.log(Actor.profile_path);
-    console.log(Actor);
-    
-    
-  
-    const nameActor = document.createElement("h4");
-    nameActor.textContent = product.name;
-  
-    const Department = document.createElement("h2");
-    Department.textContent = product.known_for_department;
-  
-    const famous = document.createElement("p");
-    
+      
+      if (result.profile_path) {
+        iimg.src = `https://image.tmdb.org/t/p/w200${result.profile_path}`;
+      } else {
+        iimg.src = 'https://via.placeholder.com/200'; 
+      }
 
-    famous.textContent = Actor.backdrop_path
-    
-  
-    personContainer.appendChild(iimg);
-    personContainer.appendChild(nameActor);
-    personContainer.appendChild(Department);
-    personContainer.appendChild(famous);
+      const department = document.createElement("h4");
+      department.textContent = result.known_for_department;  
 
-  }
-  
+      const nameActor = document.createElement("h1");
+      nameActor.textContent = result.name;  
+
+      const famousdiv = document.createElement("div");
+
+      
+      result.known_for.forEach((movie) => {
+        const actorInfo = document.createElement("p");
+
+        if (movie.media_type == "movie") {
+          actorInfo.textContent = `Movie: ${movie.title}`;
+        } else if (movie.media_type == "tv") {
+          actorInfo.textContent = `TV: ${movie.name}`;
+        }
+
+        famousdiv.appendChild(actorInfo);
+      });
+
+      
+      personContainer.appendChild(iimg);
+      personContainer.appendChild(nameActor);
+      personContainer.appendChild(department);
+      personContainer.appendChild(famousdiv);
+    }
+
+    
+    if (result.media_type === "movie") {
+      const img = document.createElement("img");
+
+      
+      if (result.poster_path) {
+        img.src = `https://image.tmdb.org/t/p/w200${result.poster_path}`;
+      } else {
+        img.src = 'https://via.placeholder.com/200';
+      }
+
+      const movieTitle = document.createElement("h2");
+      movieTitle.textContent = result.title;  
+
+      const dateOfMovie = document.createElement("p");
+      dateOfMovie.textContent = result.release_date;  
+
+      const overviewMovie = document.createElement("p");
+      overviewMovie.textContent = result.overview;  
+
+      
+      movieContainer.appendChild(img);
+      movieContainer.appendChild(movieTitle);
+      movieContainer.appendChild(dateOfMovie);
+      movieContainer.appendChild(overviewMovie);
+    }
+  });
 }
+
+    
+
