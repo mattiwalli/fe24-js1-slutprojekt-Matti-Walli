@@ -31,7 +31,7 @@ popular.addEventListener("click", () => {
 });
 
 function GetpopularMovies(PopularAPIObjekt) {
-  console.log(PopularAPIObjekt);
+  
  
   Popularcontainer.innerHTML = "";
 
@@ -118,7 +118,7 @@ form.addEventListener("submit", (event) => {
 
 
   const url = `https://api.themoviedb.org/3/search/multi?query=${searchPerson}&include_adult=false&language=en-US&page=1&api_key=${API_KEY}`;
-  console.log(url);
+  
 
   fetch(url)
     .then((response) => {
