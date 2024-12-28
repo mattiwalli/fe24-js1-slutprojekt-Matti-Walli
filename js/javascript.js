@@ -31,7 +31,7 @@ popular.addEventListener("click", () => {
 });
 
 function GetpopularMovies(PopularAPIObjekt) {
-  
+  console.log(PopularAPIObjekt);
  
   Popularcontainer.innerHTML = "";
 
@@ -118,7 +118,7 @@ form.addEventListener("submit", (event) => {
 
 
   const url = `https://api.themoviedb.org/3/search/multi?query=${searchPerson}&include_adult=false&language=en-US&page=1&api_key=${API_KEY}`;
-  
+  console.log(url);
 
   fetch(url)
     .then((response) => {
@@ -154,13 +154,14 @@ function errorMessage(error) {
 function getmultiInfo(searchAPIObjekt) {
   const multiSearch = searchAPIObjekt.results;
 
-  
-
   personContainer.innerHTML = "";
   movieContainer.innerHTML = "";
 
-  multiSearch.forEach((result) => {
+ 
+  for (let z = 0; z < multiSearch.length; z++) {
+    const result = multiSearch[z];
 
+    
     if (result.media_type == "person") {
       const iimg = document.createElement("img");
 
@@ -178,7 +179,9 @@ function getmultiInfo(searchAPIObjekt) {
 
       const famousdiv = document.createElement("div");
 
-      result.known_for.forEach((movie) => {
+      
+      for (let j = 0; j < result.known_for.length; j++) {
+        const movie = result.known_for[j];
         const actorInfo = document.createElement("p");
 
         if (movie.media_type == "movie") {
@@ -188,24 +191,23 @@ function getmultiInfo(searchAPIObjekt) {
         }
 
         famousdiv.appendChild(actorInfo);
-      });
+      }
 
       personContainer.appendChild(iimg);
       personContainer.appendChild(nameActor);
       personContainer.appendChild(department);
       personContainer.appendChild(famousdiv);
 
-      
       anime({
-        targets: [iimg,nameActor,department,famousdiv],
+        targets: [iimg, nameActor, department, famousdiv],
         opacity: [0, 1],  
         duration: 1000,    
         easing: 'easeInOutQuad'
       });
       personContainer.classList.add("active");
-      
     }
 
+   
     if (result.media_type === "movie") {
       const img = document.createElement("img");
 
@@ -229,10 +231,8 @@ function getmultiInfo(searchAPIObjekt) {
       movieContainer.appendChild(dateOfMovie);
       movieContainer.appendChild(overviewMovie);
 
-      
-      
       anime({
-        targets: [overviewMovie,img,movieTitle,dateOfMovie],
+        targets: [overviewMovie, img, movieTitle, dateOfMovie],
         opacity: [0, 1],  
         duration: 1000,   
         easing: 'easeInOutQuad',
@@ -240,5 +240,5 @@ function getmultiInfo(searchAPIObjekt) {
       });
       movieContainer.classList.add("active");
     }
-  });
+  }
 }
