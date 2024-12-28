@@ -1,0 +1,14 @@
+#Popularresults,
+#Rankedresults,
+#Actorresults,
+#Movieresults {
+  display: none; 
+}
+
+
+#Popularresults.active,
+#Rankedresults.active,
+#Actorresults.active,
+#Movieresults.active {
+  display: block;
+}
