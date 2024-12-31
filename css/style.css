@@ -13,7 +13,7 @@
   display: block;
 }
 
-/* Grundläggande styling */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -130,7 +130,7 @@ button:focus {
   color: white;
 }
 
-/* Förbättra responsivitet */
+
 @media (max-width: 768px) {
   .results-container div {
     width: 100%;
