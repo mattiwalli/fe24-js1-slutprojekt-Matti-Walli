@@ -12,3 +12,137 @@
 #Movieresults.active {
   display: block;
 }
+
+/* Grundläggande styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  
+}
+
+h1, h2, h4, p {
+  margin: 0;
+  padding: 0;
+}
+
+form {
+  background-color: darkslategray;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+form input[type="text"] {
+  width: 80% ;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+form button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: darkcyan;
+  color: white;
+  border: none;
+  cursor: pointer;
+  justify-content: center;
+  margin-right: 15px;
+}
+
+
+button:focus {
+  outline: none;
+}
+
+#topranked, #mostpopular {
+  background-color: lightsalmon
+}
+
+
+.design-container {
+  display: none;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.design-container.active {
+  display: flex;
+}
+
+.design-container img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+
+
+.design-container div {
+  text-align: center;
+  width: 200px;
+  margin: 0 10px;
+}
+
+.design-container h4 {
+  font-size: 18px;
+  color: white;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.design-container p {
+  font-size: 14px;
+  color: white;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+#Actorresults img {
+  width: 150px;
+  height: 225px;
+}
+
+#Actorresults h1 {
+  font-size: 18px;
+  color: white;
+  margin: 10px 0;
+}
+
+#Actorresults h4 {
+  font-size: 14px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+#Actorresults .famousdiv p {
+  font-size: 12px;
+  color: white;
+}
+
+/* Förbättra responsivitet */
+@media (max-width: 768px) {
+  .results-container div {
+    width: 100%;
+    text-align: center;
+  }
+
+  form {
+    width: 90%;
+  }
+
+  .results-container img {
+    width: 150px;
+    height: 225px;
+  }
+}
