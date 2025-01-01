@@ -217,7 +217,7 @@ function getmultiInfo(searchAPIObjekt) {
         img.src = 'https://via.placeholder.com/200';
       }
 
-      const movieTitle = document.createElement("h2");
+      const movieTitle = document.createElement("h4");
       movieTitle.textContent = result.title;
 
       const dateOfMovie = document.createElement("p");

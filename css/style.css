@@ -19,12 +19,9 @@ body {
   margin: 0;
   padding: 0;
   background-color: black;
-  
-}
-
-h1, h2, h4, p {
-  margin: 0;
-  padding: 0;
+  display: grid;
+  align-items: center;  
+  min-height: 100vh;  
 }
 
 form {
@@ -37,7 +34,7 @@ form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-form input[type="text"] {
+form input{
   width: 80% ;
   padding: 8px;
   margin: 10px 0;
@@ -57,25 +54,16 @@ form button {
 }
 
 
-button:focus {
-  outline: none;
-}
-
-#topranked, #mostpopular {
-  background-color: lightsalmon
-}
-
 
 .design-container {
-  display: none;
-  flex-wrap: wrap;
-  justify-content: center;
+  
+  justify-self: center;  
+  align-self: center;  
   margin: 20px 0;
+  
+  
 }
 
-.design-container.active {
-  display: flex;
-}
 
 .design-container img {
   width: 200px;
@@ -85,8 +73,6 @@ button:focus {
   margin: 10px;
   transition: transform 0.3s ease-in-out;
 }
-
-
 
 .design-container div {
   text-align: center;
@@ -98,14 +84,12 @@ button:focus {
   font-size: 18px;
   color: white;
   margin-top: 5px;
-  margin-left: 10px;
 }
 
 .design-container p {
   font-size: 14px;
   color: white;
   margin-top: 5px;
-  margin-left: 10px;
 }
 
 #Actorresults img {
@@ -130,7 +114,6 @@ button:focus {
   color: white;
 }
 
-
 @media (max-width: 768px) {
   .results-container div {
     width: 100%;
@@ -146,3 +129,34 @@ button:focus {
     height: 225px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
