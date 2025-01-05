@@ -2,7 +2,6 @@ const popular = document.querySelector("#mostpopular");
 const topranked = document.querySelector("#topranked");
 const form = document.querySelector("form");
 
-
 const Popularcontainer = document.querySelector("#Popularresults");
 const Rankedcontainer = document.querySelector("#Rankedresults");
 const personContainer = document.querySelector("#Actorresults");
@@ -20,7 +19,7 @@ function removeClasses() {
 popular.addEventListener("click", () => {
   event.preventDefault();
 
-  removeClasses(); 
+  removeClasses();
   Popularcontainer.classList.add("active");
 
   const PopularUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;
@@ -32,7 +31,7 @@ popular.addEventListener("click", () => {
 
 function GetpopularMovies(PopularAPIObjekt) {
   console.log(PopularAPIObjekt);
- 
+
   Popularcontainer.innerHTML = "";
 
   for (let i = 0; i < 10; i++) {
@@ -51,22 +50,20 @@ function GetpopularMovies(PopularAPIObjekt) {
     Popularcontainer.appendChild(Thedate);
 
     anime({
-      targets: [img,titleOfMovie,Thedate],
-      opacity: [0, 1],  
-      duration: 1000,    
-      easing: 'easeInOutQuad'
+      targets: [img, titleOfMovie, Thedate],
+      opacity: [0, 1],
+      duration: 1000,
+      easing: "easeInOutQuad",
     });
-    
   }
 }
-
 
 topranked.addEventListener("click", () => {
   event.preventDefault();
 
-  removeClasses();  
+  removeClasses();
 
-  Rankedcontainer.classList.add("active");  
+  Rankedcontainer.classList.add("active");
 
   const Rankedurl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}`;
 
@@ -76,7 +73,6 @@ topranked.addEventListener("click", () => {
 });
 
 function GetrankedMovies(RankedAPIObjekt) {
-  
   Rankedcontainer.innerHTML = "";
 
   for (y = 0; y < 10; y++) {
@@ -97,59 +93,52 @@ function GetrankedMovies(RankedAPIObjekt) {
     Rankedcontainer.appendChild(imgg);
     Rankedcontainer.appendChild(titleOfMovie1);
     Rankedcontainer.appendChild(Thedate1);
-    
+
     anime({
-      targets: [imgg,titleOfMovie1,Thedate1],
-      opacity: [0, 1],  
-      duration: 1000,    
-      easing: 'easeInOutQuad'
+      targets: [imgg, titleOfMovie1, Thedate1],
+      opacity: [0, 1],
+      duration: 1000,
+      easing: "easeInOutQuad",
     });
-}}
-
-
-
+  }
+}
 
 form.addEventListener("submit", (event) => {
-  event.preventDefault(); 
+  event.preventDefault();
 
-  removeClasses();  
+  removeClasses();
 
   const searchPerson = form.querySelector("input").value;
-
 
   const url = `https://api.themoviedb.org/3/search/multi?query=${searchPerson}&include_adult=false&language=en-US&page=1&api_key=${API_KEY}`;
   console.log(url);
 
   fetch(url)
     .then((response) => {
-      if (response.status >= 200 && response.status < 300)  { 
+      if (response.status >= 200 && response.status < 300) {
         return response.json();
-      } else if (response.status == 404) { 
-        throw error
-      } 
-    })
-    .then((data) => {
-      
-      if (data.results.length == 0) {
-        throw "Incorrect typing."; 
+      } else if (response.status == 404) {
+        throw error;
       }
-      getmultiInfo(data);  
     })
-    .catch(errorMessage); 
+    .then((message) => {
+      if (message.results.length == 0) {
+        throw "Incorrect typing.";
+      }
+      getmultiInfo(message);
+    })
+    .catch(errorMessage);
 
-  form.reset(); 
+  form.reset();
 });
 
 function errorMessage(error) {
   if (error == "Incorrect typing.") {
-    alert("Incorrect typing, please try again.");
+    alert("Type a result, or check ur spelling please.");
   } else {
     alert("Failed to get result, Check ur internet connection.");
   }
 }
-
-
-
 
 function getmultiInfo(searchAPIObjekt) {
   const multiSearch = searchAPIObjekt.results;
@@ -157,18 +146,17 @@ function getmultiInfo(searchAPIObjekt) {
   personContainer.innerHTML = "";
   movieContainer.innerHTML = "";
 
- 
   for (let z = 0; z < multiSearch.length; z++) {
     const result = multiSearch[z];
+    movieContainer.classList.add("active");
 
-    
     if (result.media_type == "person") {
       const iimg = document.createElement("img");
 
       if (result.profile_path) {
         iimg.src = `https://image.tmdb.org/t/p/w200${result.profile_path}`;
       } else {
-        iimg.src = 'https://via.placeholder.com/200'; 
+        iimg.src = "https://www.kongsberg.com/dist/assets/images/noImage.png";
       }
 
       const department = document.createElement("h4");
@@ -179,7 +167,6 @@ function getmultiInfo(searchAPIObjekt) {
 
       const famousdiv = document.createElement("div");
 
-      
       for (let j = 0; j < result.known_for.length; j++) {
         const movie = result.known_for[j];
         const actorInfo = document.createElement("p");
@@ -200,21 +187,20 @@ function getmultiInfo(searchAPIObjekt) {
 
       anime({
         targets: [iimg, nameActor, department, famousdiv],
-        opacity: [0, 1],  
-        duration: 1000,    
-        easing: 'easeInOutQuad'
+        opacity: [0, 1],
+        duration: 1000,
+        easing: "easeInOutQuad",
       });
       personContainer.classList.add("active");
     }
 
-   
-    if (result.media_type === "movie") {
+    if (result.media_type == "movie") {
       const img = document.createElement("img");
 
       if (result.poster_path) {
         img.src = `https://image.tmdb.org/t/p/w200${result.poster_path}`;
       } else {
-        img.src = 'https://via.placeholder.com/200';
+        img.src = "https://via.placeholder.com/200";
       }
 
       const movieTitle = document.createElement("h4");
@@ -233,12 +219,11 @@ function getmultiInfo(searchAPIObjekt) {
 
       anime({
         targets: [overviewMovie, img, movieTitle, dateOfMovie],
-        opacity: [0, 1],  
-        duration: 1000,   
-        easing: 'easeInOutQuad',
-        delay: 200         
+        opacity: [0, 1],
+        duration: 1000,
+        easing: "easeInOutQuad",
+        delay: 200,
       });
-      movieContainer.classList.add("active");
     }
   }
 }
