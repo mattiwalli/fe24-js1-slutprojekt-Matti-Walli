@@ -122,8 +122,8 @@ form.addEventListener("submit", (event) => {
       }
     })
     .then((message) => {
-      if (message.results.length == 0) {
-        throw "Incorrect typing.";
+      if (message.results == 0) {
+        throw "alert error.";
       }
       getmultiInfo(message);
     })
@@ -133,8 +133,8 @@ form.addEventListener("submit", (event) => {
 });
 
 function errorMessage(error) {
-  if (error == "Incorrect typing.") {
-    alert("Type a result, or check ur spelling please.");
+  if (error == "alert error.") {
+    alert("Please type something, or check ur spelling.");
   } else {
     alert("Failed to get result, Check ur internet connection.");
   }
